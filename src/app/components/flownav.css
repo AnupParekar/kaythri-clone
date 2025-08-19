@@ -1,0 +1,64 @@
+.flownav-header {
+  width: 100%;
+  background: white;
+  border-bottom: 1px solid #ddd;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+.flownav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flownav-logo {
+  font-size: 20px;
+  font-weight: bold;
+  color: #222;
+}
+
+.flownav-nav {
+  display: flex;
+  gap: 25px;
+}
+
+.flownav-nav a {
+  text-decoration: none;
+  font-size: 16px;
+  color: #222;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.flownav-nav a:hover {
+  color: #0070f3;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .flownav-nav {
+    display: none;
+  }
+}
+
+.logo-text {
+  color: #38bdf8; /* Tailwind's sky-400 */
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px white; /* white shadow */
+}
+.active-link {
+  color: yellow; /* Highlight active link */
+  font-weight: bold;
+}
+/* Active link style */
+.flownav-nav a.active {
+  color: red; /* Change active link to yellow */
+  font-weight: bold;
+}
