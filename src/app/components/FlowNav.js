@@ -11,13 +11,16 @@ export default function Flownav() {
       <div className="flownav-container">
         {/* Logo */}
         <div className="flownav-logo flex items-center gap-2">
+          <Link href="/">
           <Image
             src="/KC.jpg"
             alt="My Logo"
             width={40}
             height={40}
-          />
-          <span className="logo-text">KaythriClone</span>
+          /></Link>
+          <Link href="/" className="logo-text">
+  KaythriClone
+</Link>
         </div>
         {/* Nav links */}
         <nav className="flownav-nav">

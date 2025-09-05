@@ -10,15 +10,36 @@ import {
 } from 'flowbite-react';
 
 export default function ContactPage() {
+  const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [messageSent, setMessageSent] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.id]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setTimeout(() => {
-      setMessageSent(true);
-      alert("✅ Message sent successfully!");
-    }, 500);
-    e.target.reset();
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+
+      const data = await res.json();
+
+      if (data.success) {
+        setMessageSent(true);
+        alert("✅ Message saved in database!");
+        setForm({ name: "", email: "", message: "" });
+      } else {
+        alert("❌ Failed to save message!");
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      alert("⚠️ Something went wrong!");
+    }
   };
 
   return (
@@ -38,15 +59,36 @@ export default function ContactPage() {
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             <div>
               <Label htmlFor="name" value="Name" className="text-sky-800" />
-              <TextInput id="name" type="text" placeholder="Your Name" required />
+              <TextInput 
+                id="name" 
+                type="text" 
+                placeholder="Your Name" 
+                value={form.name}
+                onChange={handleChange}
+                required 
+              />
             </div>
             <div>
               <Label htmlFor="email" value="Email" className="text-sky-800" />
-              <TextInput id="email" type="email" placeholder="you@example.com" required />
+              <TextInput 
+                id="email" 
+                type="email" 
+                placeholder="you@example.com" 
+                value={form.email}
+                onChange={handleChange}
+                required 
+              />
             </div>
             <div>
               <Label htmlFor="message" value="Message" className="text-sky-800" />
-              <Textarea id="message" placeholder="Type your message..." rows={4} required />
+              <Textarea 
+                id="message" 
+                placeholder="Type your message..." 
+                rows={4} 
+                value={form.message}
+                onChange={handleChange}
+                required 
+              />
             </div>
             <Button
               type="submit"
